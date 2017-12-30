@@ -1,5 +1,4 @@
 import webbrowser
-import sys
 import lazy
 import requests
 
@@ -55,35 +54,36 @@ def help():
     for x in range(len(list)):
         print(list[x])
 
+def do(args):
+    if len(args) > 1:
+        command = str(args[1])
 
-if len(sys.argv)>1:
-    command = str(sys.argv[1])
+        if command == "open" and len(args) == 3:
+            name = args[2]
+            open(name)
 
-    if command == "open" and len(sys.argv)==3:
-        name = sys.argv[2]
-        open(name)
+        elif command == "add" and len(args) == 4:
+            name = args[2]
+            url = args[3]
+            add_custom_shortcut(name, url)
 
-    elif command == "add" and len(sys.argv) == 4:
-        name = sys.argv[2]
-        url = sys.argv[3]
-        add_custom_shortcut(name, url)
+        elif command == "rename" and len(args) == 4:
+            old = args[2]
+            new = args[3]
+            rename_shortcut(old, new)
 
-    elif command == "rename" and len(sys.argv) == 4:
-        old = sys.argv[2]
-        new = sys.argv[3]
-        rename_shortcut(old, new)
+        elif command == "see" and len(args) == 2:
+            see_existing_shortcuts()
 
-    elif command == "see" and len(sys.argv) == 2:
-        see_existing_shortcuts()
+        elif command == "help" and len(args) == 2:
+            help()
 
-    elif command == "help" and len(sys.argv) == 2:
-        help()
+        elif command == "del" and len(args) == 3:
+            name = args[2]
+            delete(name)
 
-    elif command == "del" and len(sys.argv) == 3:
-        name = sys.argv[2]
-        delete(name)
+        lazy.close()
 
-    lazy.close()
+    else:
+        print("Enter command type - help")
 
-else:
-    print("Enter command type - help")
